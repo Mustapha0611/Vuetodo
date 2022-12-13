@@ -225,9 +225,7 @@ ul {
   width: 5px;
   height: 5px;
 }
-::-webkit-scrollbar-track {
-  /* background-color: hsl(235, 24%, 19%); */
-}
+
 ::-webkit-scrollbar-thumb {
   background-color: hsl(235, 20%, 54%);
 }
