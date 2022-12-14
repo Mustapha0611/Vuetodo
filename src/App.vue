@@ -344,10 +344,13 @@ background:  hsl(189, 28%, 14%) ;
     background-image: url("@/assets/bg-mobile-light.jpg");
   }
   .main {
-    width: 94%;
+    width: 90%;
   }
   .heading > h1 {
     font-size: 2rem;
+  }
+  input[type="text"] {
+    width:91%;
   }
   ul {
     width: 100%;
