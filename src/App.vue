@@ -34,10 +34,10 @@
         />
       </div>
       <ul :class="{ listbg: lightMode }" v-if="todos.length > 0">
-        <li v-for="(todo, index) in display" :key="index">
+        <li v-for="(todo, id) in display" :key="todo.id">
           <input type="checkbox" v-model="todo.isDone" id="checked" />
-          <p :class="{ strike: todo.isDone }">{{ todo.todo }}</p>
-          <div @click="removeTodo">
+          <p :class="{ strike: todo.isDone }">{{todo.id}}. {{ todo.todo }}</p>
+          <div @click="removeTodo(todo.id)">
             <img src="@/assets/icon-cross.svg" alt="" srcset="" />
           </div>
         </li>
@@ -73,6 +73,7 @@ export default {
       lightMode: false,
       textInput: "",
       filterItem: "All",
+      idinc:0,
       display: [],
       todos: [
         // {
@@ -100,14 +101,19 @@ export default {
         console.log("error");
       } else {
         this.todos.push({
+          id: ++this.idinc,
           todo: this.textInput,
           isDone: false,
         });
         this.textInput = "";
       }
     },
-    removeTodo(index) {
-      this.todos.splice(index, 1);
+    // removeTodo(index) {
+    //   this.todos.splice(index, 1);
+    // },
+    removeTodo(id) {
+      this.todos = this.todos.filter(todo => todo.id!== id);
+      this.filteredTodos();
     },
     filter(e) {
       this.filteritem = e.target.innerText;
@@ -131,21 +137,22 @@ export default {
   },
   mounted() {
     this.display = this.todos;
+    this.filteredTodos();
   },
   computed: {
     remaining() {
       return this.todos.filter((todo) => !todo.isDone).length;
-    },
+    }
   },
 };
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap'); 
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap");
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Lexend Deca', sans-serif;
+  font-family: "Lexend Deca", sans-serif;
 }
 #app {
   font-family: sans-serif;
@@ -238,7 +245,7 @@ li {
   overflow: hidden;
   padding: 20px 10px;
   border-bottom: 1px solid hsl(233, 14%, 35%);
-  display:grid;
+  display: grid;
   grid-template-columns: 1fr 20fr 1fr;
 }
 li > p {
@@ -288,8 +295,8 @@ span:hover {
   /* display: flex;
 justify-content: center;
 align-items: center; */
-background:  hsl(189, 28%, 14%) ;
-/* background-image: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%); */
+  background: hsl(189, 28%, 14%);
+  /* background-image: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%); */
 }
 #checked::after {
   content: "\2713";
@@ -298,12 +305,13 @@ background:  hsl(189, 28%, 14%) ;
   margin-bottom: 4px;
   font-size: 10px;
   display: none;
-  background-image: linear-gradient to right hsl(192, 100%, 67%)  hsl(280, 87%, 65%);
+  background-image: linear-gradient to right hsl(192, 100%, 67%)
+    hsl(280, 87%, 65%);
 }
 #checked:checked {
   background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
 }
-#checked:hover{
+#checked:hover {
   border: 1px solid aqua;
 }
 #checked:checked::after {
@@ -350,7 +358,7 @@ background:  hsl(189, 28%, 14%) ;
     font-size: 2rem;
   }
   input[type="text"] {
-    width:91%;
+    width: 91%;
   }
   ul {
     width: 100%;
