@@ -36,7 +36,7 @@
       <ul :class="{ listbg: lightMode }" v-if="todos.length > 0">
         <li v-for="(todo, id) in display" :key="todo.id">
           <input type="checkbox" v-model="todo.isDone" id="checked" />
-          <p :class="{ strike: todo.isDone }">{{todo.id}}. {{ todo.todo }}</p>
+          <p :class="{ strike: todo.isDone }">{{ todo.todo }}</p>
           <div @click="removeTodo(todo.id)">
             <img src="@/assets/icon-cross.svg" alt="" srcset="" />
           </div>
