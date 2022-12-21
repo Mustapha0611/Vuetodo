@@ -29,7 +29,8 @@
           type="text"
           v-model="textInput"
           placeholder="Create a new todo..."
-          :class="{ bglight: lightMode }"
+          class="input-text"
+          :class="{ inputlight: lightMode }"
           @keyup.enter="addTodo"
         />
       </div>
@@ -75,20 +76,7 @@ export default {
       filterItem: "All",
       idinc:0,
       display: [],
-      todos: [
-        // {
-        //   todo: "Add task 1",
-        //   isDone: true,
-        // },
-        // {
-        //   todo: "Add task 2",
-        //   isDone: false,
-        // },
-        // {
-        //   todo: "Add task 3",
-        //   isDone: true,
-        // },
-      ],
+      todos: []
     };
   },
   methods: {
@@ -108,9 +96,6 @@ export default {
         this.textInput = "";
       }
     },
-    // removeTodo(index) {
-    //   this.todos.splice(index, 1);
-    // },
     removeTodo(id) {
       this.todos = this.todos.filter(todo => todo.id!== id);
       this.filteredTodos();
@@ -209,7 +194,7 @@ export default {
 .input-field {
   margin-top: 40px;
 }
-input[type="text"] {
+.input-text{
   width: 93%;
   border: none;
   font-size: 18px;
@@ -218,6 +203,10 @@ input[type="text"] {
   background-color: hsl(235, 24%, 19%);
   color: #fff;
   outline: none;
+}
+.inputlight{
+  color: hsl(235, 24%, 19%);
+  background-color: #fff;
 }
 ul {
   list-style: none;
@@ -281,9 +270,6 @@ span {
 span:hover {
   color: hsl(220, 98%, 61%);
 }
-/* span:focus {
-  color: hsl(233, 100%, 97%);
-} */
 #checked {
   appearance: none;
   -webkit-appearance: none;
@@ -292,11 +278,7 @@ span:hover {
   width: 18px;
   border: 1px solid hsl(233, 14%, 35%);
   cursor: pointer;
-  /* display: flex;
-justify-content: center;
-align-items: center; */
   background: hsl(189, 28%, 14%);
-  /* background-image: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%); */
 }
 #checked::after {
   content: "\2713";
